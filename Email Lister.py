@@ -51,8 +51,9 @@ for i in range(len(df['Founders'])):
         emlst.append((a[0] + '.' + a[space + 1:] + '@' + df['Domain'][i]).lower())
         companylst.append(df['Organization Name'][i])
         namelst.append(a)
-        #for w in emlst:
-
+        dict = {'Company':companylst, 'Name':namelst, 'Email':emlst}
+        temp = pd.DataFrame(dict)
+        emails = pd.concat(temp, emails)
 
 
 #print(emails.head())
