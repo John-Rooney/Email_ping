@@ -1,8 +1,8 @@
 def lister():
 
     import pandas as pd
-
-    raw = pd.read_csv('Florida Test.csv')
+    lst=input('Which List:')
+    raw = pd.read_csv(lst)
     df = pd.DataFrame(raw)
 
     # Create 'Domain' column
@@ -56,7 +56,7 @@ def lister():
             dict = {'Company':companylst, 'Name':namelst, 'Email':emlst}
 
     emails = pd.DataFrame(dict)
+    #print(emails.head())
+    #emails.to_csv('TestResults.csv', index=False)
 
-    emails.to_csv('TestResults.csv', index=False)
-
-    return()
+    return emails
