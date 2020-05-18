@@ -81,6 +81,7 @@ def ping(i, index):
     # print('')
     if index % 100 == 0:
         print(str(index) + ": " + str(i))
+    # return ping_email(i)
     try:
         return ping_email(i)
     except:

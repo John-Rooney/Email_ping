@@ -4,10 +4,10 @@ import pandas as pd
 
 def lister():
     # lst=input('Which List:')
-    raw = pd.read_csv('Sample15.csv')
+    raw = pd.read_csv('200NewYork.csv')
     df = pd.DataFrame(raw)
 
-    # Create 'Domain' and 'Email Valid columns
+    # Create 'Domain' column
     df['Domain'] = df['Website']
 
     # Parse Domain from rest of URL in 'Website' column
@@ -25,47 +25,56 @@ def lister():
             df['Domain'][i] = df['Domain'][i][:-1]
 
     # Create list of emails from founders
-    dict = {}
     emlst = []
     companylst = []
     namelst = []
+    valid = []
+    dict = {'Company': companylst, 'Name': namelst, 'Email': emlst, 'Email Result': valid}
+
     for i in range(len(df['Founders'])):
         rawIndiv = df['Founders'][i].split(', ')
         for a in rawIndiv:
+            templst = []
             space = a.index(' ')
             # First@domain
             em1 = (a[:space] + '@' + df['Domain'][i]).lower()
-            list_build(em1, emlst, companylst, namelst, i, a)
+            templst.append(em1)
 
             # First.Last
             em2 = (a[:space] + '.' + a[space + 1:] + '@' + df['Domain'][i]).lower()
-            list_build(em2, emlst, companylst, namelst, i, a)
+            templst.append(em2)
 
             # FirstLast
             em3 = (a[:space] + a[space + 1:] + '@' + df['Domain'][i]).lower()
-            list_build(em3, emlst, companylst, namelst, i, a)
+            templst.append(em3)
 
             # First[0]Last
             em4 = (a[0] + a[space + 1:] + '@' + df['Domain'][i]).lower()
-            list_build(em4, emlst, companylst, namelst, i, a)
+            templst.append(em4)
 
             # First[0].Last
             em5 = (a[0] + '.' + a[space + 1:] + '@' + df['Domain'][i]).lower()
-            list_build(em5, emlst, companylst, namelst, i, a)
+            templst.append(em5)
 
-            dict = {'Company': companylst, 'Name': namelst, 'Email': emlst}
+            for z in templst:
+                try:
+                    result = main.ping_email(z)
+                    print(z + ' ' + str(result))
+                    if result == 'Success':
+                        emlst.append(z)
+                        companylst.append(df['Organization Name'][i])
+                        namelst.append(a)
+                        valid.append(result)
+                        break
+                except:
+                    print('There was an Error')
+                    emails = pd.DataFrame(dict)
+                    emails.to_csv('TestResults.csv', index=False)
+
 
     emails = pd.DataFrame(dict)
     # print(emails.head())
-    # emails.to_csv('TestResults.csv', index=False)
+    emails.to_csv('TestResults.csv', index=False)
     return emails
-
-
-def list_build(em, emlst, companylst, namelst, i, a):
-    emlst.append(em)
-    companylst.append(df['Organization Name'][i])
-    namelst.append(a)
-    return emlst, companylst, namelst
-
 
 lister()

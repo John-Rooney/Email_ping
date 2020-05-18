@@ -52,7 +52,9 @@ def main():
         print(i)
         # data["Email Validity"] = ping_email(i)
         try:
-            data.loc[data[email_col] == i, "Email Validity"] = ping_email(i)
+            result = ping_email(i)
+            data.loc[data[email_col] == i, "Email Validity"] = result
+            print(result)
         except:
             data.loc[data[email_col] == i, "Email Validity"] = "Domain Doesn't Exist"
 
@@ -135,3 +137,5 @@ def column_selection(headers):
 
 if __name__ == '__main__':
     main()
+
+#print(ping_email('john@farshore.com'))
