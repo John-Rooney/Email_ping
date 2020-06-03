@@ -4,7 +4,7 @@ import pandas as pd
 
 def lister():
     # lst=input('Which List:')
-    raw = pd.read_csv('200NewYork.csv')
+    raw = pd.read_csv('This One.csv')
     df = pd.DataFrame(raw)
 
     # Create 'Domain' column
@@ -57,6 +57,7 @@ def lister():
             templst.append(em5)
 
             for z in templst:
+                print(z)
                 try:
                     result = main.ping_email(z)
                     print(z + ' ' + str(result))
@@ -66,6 +67,17 @@ def lister():
                         namelst.append(a)
                         valid.append(result)
                         break
+                    elif result == 'Bad Syntax':
+                        emlst.append(z)
+                        companylst.append(df['Organization Name'][i])
+                        namelst.append(a)
+                        valid.append(result)
+                        break
+                    else:
+                        emlst.append(z)
+                        companylst.append(df['Organization Name'][i])
+                        namelst.append(a)
+                        valid.append(result)
                 except:
                     print('There was an Error')
                     emails = pd.DataFrame(dict)
@@ -77,4 +89,5 @@ def lister():
     emails.to_csv('TestResults.csv', index=False)
     return emails
 
-lister()
+#lister()
+main.ping_email('john@farshore.com')
