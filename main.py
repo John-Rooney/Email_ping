@@ -4,7 +4,7 @@ import dns.resolver
 import pandas as pd
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-
+import socket
 
 def main():
     print("Program: Email Ping")
@@ -135,7 +135,12 @@ def column_selection(headers):
     return column
 
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()
 
-#print(ping_email('john@farshore.com'))
+#ping_email('jason@buttonfinance.com')
+# test = smtplib.SMTP()
+# test.create_connection('farshore.com')
+# print(test.verify('john@farshore.com'))
+test = socket.create_connection(('farshore.com', 465))
+print(test)

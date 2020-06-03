@@ -2,6 +2,7 @@ import numpy as np
 import main
 import pandas as pd
 
+
 def lister():
     # lst=input('Which List:')
     raw = pd.read_csv('This One.csv')
@@ -83,11 +84,10 @@ def lister():
                     emails = pd.DataFrame(dict)
                     emails.to_csv('TestResults.csv', index=False)
 
-
     emails = pd.DataFrame(dict)
     # print(emails.head())
     emails.to_csv('TestResults.csv', index=False)
     return emails
 
-#lister()
-main.ping_email('john@farshore.com')
+# lister()
+main.ping_email('augustin@paranoidfan.com')
