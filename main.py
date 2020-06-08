@@ -4,7 +4,7 @@ import dns.resolver
 import pandas as pd
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
-import socket
+
 
 def main():
     print("Program: Email Ping")
@@ -58,14 +58,14 @@ def main():
         except:
             data.loc[data[email_col] == i, "Email Validity"] = "Domain Doesn't Exist"
 
-    # # Write CSV
-    # print("Writing CSV File...")
-    # data.to_csv(file_out, index=False)
-    # print("Wrote CSV File!")
-    # print()
-    #
-    # print("File written to: " + file_out)
-    # input("Press Enter to close...")
+    # Write CSV
+    print("Writing CSV File...")
+    data.to_csv(file_out, index=False)
+    print("Wrote CSV File!")
+    print()
+
+    print("File written to: " + file_out)
+    input("Press Enter to close...")
 
 
 def ping_email(inputAddress):
@@ -138,9 +138,5 @@ def column_selection(headers):
 # if __name__ == '__main__':
 #     main()
 
-#ping_email('jason@buttonfinance.com')
-# test = smtplib.SMTP()
-# test.create_connection('farshore.com')
-# print(test.verify('john@farshore.com'))
-test = socket.create_connection(('farshore.com', 465))
-print(test)
+
+ping_email('abb@curucredit.com')
