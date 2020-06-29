@@ -6,7 +6,7 @@ import pandas as pd
 
 def lister():
     # lst=input('Which List:')
-    raw = pd.read_csv('Colorado.csv')
+    raw = pd.read_csv('Do Now.csv')
     df = pd.DataFrame(raw)
 
     # Create 'Domain' column
@@ -19,7 +19,6 @@ def lister():
             df['Domain'][i] = df['Website'][i][split:]
 
         else:
-            print(df['Website'][i])
             split = df['Website'][i].index('//') + 2
             df['Domain'][i] = df['Website'][i][split:]
 
@@ -36,7 +35,6 @@ def lister():
 
     for i in range(len(df['Founders'])):
         rawIndiv = df['Founders'][i].split(', ')
-        length = len(rawIndiv)
         for a in rawIndiv:
             templst = []
             space = a.index(' ')
@@ -61,10 +59,9 @@ def lister():
             templst.append(em5)
 
             for z in templst:
-                print(z)
+                # print(z)
                 try:
                     result = main.ping_email(z)
-                    print(str(round(a / length)))
                     print(z + ' ' + str(result))
                     if result == 'Success':
                         emlst.append(z)
@@ -84,14 +81,15 @@ def lister():
                         namelst.append(a)
                         valid.append(result)
                 except:
-                        print('Error')
+                        print('ERROR' + z)
                         emails = pd.DataFrame(dict)
                         emails.to_csv('TestResults.csv', index=False)
 
     emails = pd.DataFrame(dict)
     # print(emails.head())
     emails.to_csv('TestResults.csv', index=False)
-    return emails
+    print('FINISHED')
+    return
 
 lister()
 #main.ping_email('augustin@paranoidfan.com')
